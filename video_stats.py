@@ -8,6 +8,9 @@ load_dotenv(dotenv_path="./.env")
 API_KEY = os.getenv("API_KEY")
 CHANNEL_HANDLER = "MrBeast"
 
+if not API_KEY:
+    raise ValueError("API_KEY not found! Please check your .env file and its location.")
+
 def get_playlist_id():
     
     try:
@@ -15,11 +18,12 @@ def get_playlist_id():
 
         response = requests.get(url)
 
-        response.raise_for_status()
+        # response.raise_for_status
+        # id Playlist UUX6OQ3DkcsbYNE6H8uQQuVA
 
         data = response.json()
 
-        # print(json.dumps(data, indent=4))
+        print(json.dumps(data, indent=4))
 
         channelItems = data["items"][0]
         channel_playlistId = channelItems["contentDetails"]["relatedPlaylists"]["uploads"]
